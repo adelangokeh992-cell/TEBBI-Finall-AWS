@@ -1,0 +1,11 @@
+{
+  "short_name": "Tebbi",
+  "name": "Tebbi Medical - نظام طبي متكامل",
+  "description": "Clinic management and patient portal",
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#0d9488",
+  "background_color": "#0f172a",
+  "orientation": "portrait-primary",
+  "icons": []
+}

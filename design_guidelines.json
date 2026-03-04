@@ -1,0 +1,158 @@
+{
+  "identity": {
+    "name": "Tebbi",
+    "persona": "E1 - The Anti-AI Designer",
+    "tone": "Professional, Empathetic, Culturally Rooted, Clinical Precision",
+    "aesthetic": "Modern Medical Fusion (Swiss Precision + Islamic Geometry)",
+    "region": "Middle East / Syria",
+    "languages": ["ar", "en"]
+  },
+  "typography": {
+    "font_family": {
+      "english": {
+        "heading": "Manrope, sans-serif",
+        "body": "Manrope, sans-serif"
+      },
+      "arabic": {
+        "heading": "IBM Plex Sans Arabic, sans-serif",
+        "body": "IBM Plex Sans Arabic, sans-serif"
+      }
+    },
+    "scale": {
+      "h1": "text-4xl md:text-5xl font-bold tracking-tight",
+      "h2": "text-3xl md:text-4xl font-semibold tracking-tight",
+      "h3": "text-2xl font-semibold",
+      "body": "text-base leading-relaxed",
+      "small": "text-sm text-muted-foreground"
+    },
+    "rules": [
+      "Use 'Manrope' for English text.",
+      "Use 'IBM Plex Sans Arabic' for Arabic text.",
+      "Headings must be bold and tight.",
+      "Body text must have relaxed line-height for readability."
+    ]
+  },
+  "colors": {
+    "palette": {
+      "primary": {
+        "name": "Emerald Teal",
+        "hex": "#0D9488",
+        "tailwind": "teal-600",
+        "usage": "Primary actions, active states, branding"
+      },
+      "secondary": {
+        "name": "Desert Gold",
+        "hex": "#D97706",
+        "tailwind": "amber-600",
+        "usage": "Accents, highlights, secondary actions"
+      },
+      "background": {
+        "light": "#F8FAFC",
+        "dark": "#0F172A",
+        "paper_light": "#FFFFFF",
+        "paper_dark": "#1E293B"
+      },
+      "text": {
+        "primary_light": "#0F172A",
+        "secondary_light": "#475569",
+        "primary_dark": "#F8FAFC",
+        "secondary_dark": "#94A3B8"
+      },
+      "status": {
+        "success": "#10B981",
+        "warning": "#F59E0B",
+        "error": "#EF4444",
+        "info": "#3B82F6"
+      }
+    },
+    "gradients": {
+      "primary": "bg-gradient-to-br from-teal-600 to-teal-800",
+      "subtle": "bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-950"
+    }
+  },
+  "layout": {
+    "grid_system": "Bento Grid (High Density)",
+    "spacing": {
+      "container_padding": "p-6 md:p-8",
+      "gap": "gap-4 md:gap-6",
+      "section_spacing": "py-12 md:py-16"
+    },
+    "rtl_strategy": {
+      "direction": "rtl",
+      "rules": [
+        "Use logical properties: ms-*, me-*, ps-*, pe-* instead of ml-*, mr-*, pl-*, pr-*.",
+        "Sidebar must be on the RIGHT in RTL mode.",
+        "Icons must be mirrored (e.g., back arrow points right).",
+        "Breadcrumbs and tabs must align to the start (right)."
+      ]
+    }
+  },
+  "components": {
+    "buttons": {
+      "style": "rounded-lg font-medium transition-all duration-200",
+      "primary": "bg-teal-600 text-white hover:bg-teal-700 shadow-md hover:shadow-lg",
+      "secondary": "bg-white text-teal-900 border border-teal-200 hover:bg-teal-50 dark:bg-slate-800 dark:text-teal-100 dark:border-teal-800"
+    },
+    "cards": {
+      "style": "bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-md transition-shadow duration-200",
+      "padding": "p-6"
+    },
+    "inputs": {
+      "style": "rounded-lg border-slate-300 focus:ring-2 focus:ring-teal-500 focus:border-transparent dark:bg-slate-900 dark:border-slate-700"
+    },
+    "sidebar": {
+      "style": "bg-white dark:bg-slate-900 border-e border-slate-200 dark:border-slate-800 w-64 h-screen fixed top-0 start-0 z-50 transition-transform duration-300"
+    }
+  },
+  "visual_enhancers": {
+    "texture": "Add a subtle noise texture to the sidebar and header backgrounds to avoid 'digital flatness'.",
+    "glassmorphism": "Use backdrop-blur-md bg-white/80 dark:bg-slate-900/80 for sticky headers and modals.",
+    "shadows": "Use layered shadows: shadow-sm for cards, shadow-lg for dropdowns/modals."
+  },
+  "assets": {
+    "images": {
+      "doctor_portrait": "https://images.unsplash.com/photo-1612523138351-4643808db8f3",
+      "clinic_interior": "https://images.unsplash.com/photo-1762625570087-6d98fca29531",
+      "xray_scan": "https://images.unsplash.com/photo-1581595219145-01060b2eb27d",
+      "logo_placeholder": "https://placehold.co/200x50/0D9488/FFFFFF?text=Tebbi"
+    },
+    "icons": "Use 'lucide-react' for all icons. Ensure RTL mirroring where necessary."
+  },
+  "accessibility": {
+    "contrast": "Ensure text contrast ratio is at least 4.5:1.",
+    "focus_states": "Visible focus rings on all interactive elements (ring-2 ring-teal-500).",
+    "aria_labels": "All icon-only buttons must have aria-labels."
+  },
+  "instructions_to_main_agent": [
+    "Implement the 'Tebbi' dashboard with a focus on RTL support.",
+    "Use the defined color palette (Teal/Emerald + Sand/Gold).",
+    "Ensure the layout is responsive and works well on mobile.",
+    "Use the 'Bento Grid' layout for the dashboard overview.",
+    "Integrate the provided images for the landing/login pages.",
+    "Add a dark/light mode toggle.",
+    "Use 'Manrope' for English and 'IBM Plex Sans Arabic' for Arabic.",
+    "CRITICAL: Do not use 'Inter' font.",
+    "CRITICAL: Do not use generic blue colors.",
+    "CRITICAL: Ensure all padding/margin uses logical properties (ps, pe, ms, me)."
+  ],
+  "UNIVERSAL_GUIDELINES_FOR_MAIN_AGENT": [
+    "Dark colors look good when used independently without gradients. DO NOT use dark colors as gradients",
+    "Don't make generic centered layouts, simplistic gradients, and uniform styling.",
+    "Create depth through layered design elements with z-index hierarchy",
+    "Use glass-morphism effects with backdrop filters (12-24px blur)",
+    "You MUST NOT apply universal transition. Eg: transition: all. This results in breaking transforms. Always add transitions for specific interactive elements like button, input excluding transforms",
+    "You MUST NOT center align the app container, ie do not add .App { text-align: center; } in the css file. This disrupts the human natural reading flow of text",
+    "Always use modern button styles like pill-shaped, or sharp button with interaction animations & color relevant to the app style",
+    "NEVER: use AI assistant Emoji characters like 🤖🧠💭💡🔮🎯📚🎭🎬🎪🎉🎊🎁🎀🎂🍰🎈🎨🎰💰💵💳🏦💎🪙💸🤑📊📈📉💹🔢🏆🥇 etc for icons.",
+    "Every interaction needs micro-animations - hover states, transitions, parallax effects, and entrance animations. Static = dead.",
+    "Use 2-3x more spacing than feels comfortable. Cramped designs look cheap.",
+    "Subtle grain textures, noise overlays, custom cursors, selection states, and loading animations: separates good from extraordinary.",
+    "Main agent relies on these image URLs. Missing categories (especially sponsor logos) = main agent will use placeholder text which is FORBIDDEN",
+    "Prioritize using pre-existing components from src/components/ui when applicable",
+    "Create new components that match the style and conventions of existing components when needed",
+    "Examine existing components to understand the project's component patterns before creating new ones",
+    "Components MUST use named exports (export const ComponentName = ...)",
+    "Pages MUST use default exports (export default function PageName() {...})",
+    "Use 'sonner' for toasts. Sonner component are located in /app/src/components/ui/sonner.tsx"
+  ]
+}

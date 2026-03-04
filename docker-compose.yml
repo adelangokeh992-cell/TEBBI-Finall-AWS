@@ -1,0 +1,65 @@
+# TEBBI - Backend + Nginx + MongoDB. Backend not exposed directly; Nginx terminates HTTPS.
+# Usage: docker-compose up -d
+# With Nginx: put SSL certs in ./deploy/ssl/ (cert.pem, key.pem) and uncomment nginx service + volumes.
+# Without Nginx: backend on http://localhost:8000 (dev).
+
+services:
+  mongodb:
+    image: mongo:6
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      MONGO_URL: mongodb://mongodb:27017
+      DB_NAME: tebbi
+      JWT_SECRET: ${JWT_SECRET:-change_me_in_production_32_chars_minimum}
+      CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:3000,http://127.0.0.1:3000,https://localhost}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+    env_file:
+      - ./backend/.env
+    depends_on:
+      mongodb:
+        condition: service_healthy_at_start
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/api/health/readiness')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./deploy/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./deploy/ssl:/etc/nginx/ssl:ro
+    depends_on:
+      - backend
+    profiles:
+      - with-nginx
+
+  # Optional: frontend built and served (uncomment and add to nginx upstream if needed)
+  # frontend:
+  #   build:
+  #     context: ./frontend
+  #     dockerfile: Dockerfile
+  #   expose: ["80"]
+  #   depends_on: [backend]
+
+volumes:
+  mongodb_data: {}
