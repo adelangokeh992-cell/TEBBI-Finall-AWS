@@ -17,11 +17,20 @@ import json
 import subprocess
 import sys
 from contextlib import asynccontextmanager
+from collections import defaultdict
+import time
 
 from config import settings as app_settings
 from database import db
 from crypto_utils import encrypt_field, decrypt_field
 from cache_utils import get_cached, set_cached, _make_key, invalidate_pattern, _DEFAULT_TTL, _DASHBOARD_TTL
+from ai_utils import (
+    count_tokens_openai,
+    ensure_context_fits,
+    build_visits_context_with_summary,
+    DEFAULT_MAX_CONTEXT_TOKENS,
+    DEFAULT_MAX_OUTPUT_TOKENS,
+)
 
 _IDLE_CACHE_PREFIX = "idle:"
 
@@ -36,13 +45,6 @@ def _decrypt_patient_phi(patient: dict) -> dict:
         if patient.get(field):
             patient[field] = decrypt_field(patient[field])
     return patient
-from ai_utils import (
-    count_tokens_openai,
-    ensure_context_fits,
-    build_visits_context_with_summary,
-    DEFAULT_MAX_CONTEXT_TOKENS,
-    DEFAULT_MAX_OUTPUT_TOKENS,
-)
 
 # JWT Config (from central config)
 JWT_SECRET = app_settings.jwt_secret
@@ -917,8 +919,6 @@ class AuditLogEntry(BaseModel):
     timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
 # ==================== RATE LIMITING ====================
-from collections import defaultdict
-import time
 
 class RateLimiter:
     def __init__(self, requests_per_minute: int = 60):
@@ -2749,7 +2749,7 @@ async def analyze_patient_comprehensive(request: PatientAIAnalysisRequest, req: 
                 today = datetime.now()
                 age = today.year - dob.year - ((today.month, today.day) < (dob.month, dob.day))
                 age_str = f"{age} سنة"
-            except:
+            except Exception:
                 age_str = patient.get('date_of_birth')
         
         # Calculate BMI
@@ -5331,7 +5331,7 @@ async def get_admin_dashboard(current_user: dict = Depends(get_current_user)):
                 end_date = datetime.fromisoformat(c["subscription_end_date"].replace("Z", "+00:00"))
                 if end_date < datetime.now(timezone.utc) + timedelta(days=7):
                     expiring_soon.append(c)
-            except:
+            except Exception:
                 pass
     
     # Total stats

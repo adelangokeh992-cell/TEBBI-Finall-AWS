@@ -1,13 +1,13 @@
 import axios from 'axios';
 
-// الباكند: منفذ 8001 (لو .env فيه 8000 غيّره لـ 8001)
+// الباكند: المنفذ الافتراضي 8000 (يُحدد من .env أو REACT_APP_BACKEND_URL)
 function getBackendBase() {
   const env = process.env.REACT_APP_BACKEND_URL;
   if (env && typeof env === 'string') {
     const b = env.replace(/\/api\/?$/, '').replace(/\/$/, '').trim();
     if (b && b !== 'undefined' && b.startsWith('http')) return b;
   }
-  return 'http://localhost:8001';
+  return 'http://localhost:8000';
 }
 const BACKEND_BASE = getBackendBase();
 const API_URL = `${BACKEND_BASE}/api`;
